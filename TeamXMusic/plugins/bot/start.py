@@ -26,15 +26,18 @@ from config import BANNED_USERS, LOGGER_ID
 from strings import get_string
 from TeamXMusic import LOGGER
 
-# Add a new user to MongoDB (if not already in the database)
-async def add_served_user(user_id):
-    if not await db.users.find_one({"user_id": user_id}):
-        await db.users.insert_one({"user_id": user_id})
+# Import the MongoDB connection from mongodb.py
+from TeamXMusic.utils.mongodb import mongodb
 
-# Add a new chat (group) to MongoDB (if not already in the database)
+# Function to add a new user to MongoDB (if not already in the database)
+async def add_served_user(user_id):
+    if not await mongodb.users.find_one({"user_id": user_id}):
+        await mongodb.users.insert_one({"user_id": user_id})
+
+# Function to add a new chat (group) to MongoDB (if not already in the database)
 async def add_served_chat(chat_id):
-    if not await db.chats.find_one({"chat_id": chat_id}):
-        await db.chats.insert_one({"chat_id": chat_id})
+    if not await mongodb.chats.find_one({"chat_id": chat_id}):
+        await mongodb.chats.insert_one({"chat_id": chat_id})
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
