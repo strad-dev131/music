@@ -39,11 +39,15 @@ async def start_pm(client, message: Message, _):
         if name[0:4] == "help":
             keyboard = help_pannel(_)
             await message.reply_sticker("CAACAgUAAx0CdQO5IgACMTplUFOpwDjf-UC7pqVt9uG659qxWQACfQkAAghYGFVtSkRZ5FZQXDME")
-            return await message.reply_photo(
-                photo=random.choice(config.START_IMG_URL),
-                caption=_["help_1"].format(config.SUPPORT_CHAT),
-                reply_markup=keyboard,
-            )
+            try:
+                return await message.reply_photo(
+                    photo=random.choice(config.START_IMG_URL),
+                    caption=_["help_1"].format(config.SUPPORT_CHAT),
+                    reply_markup=keyboard,
+                )
+            except PeerIdInvalid:
+                await message.reply_text("I haven't interacted with you yet, please start the conversation with me first.")
+                return
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(2):
@@ -78,12 +82,16 @@ async def start_pm(client, message: Message, _):
                 ]
             )
             await m.delete()
-            await app.send_photo(
-                chat_id=message.chat.id,
-                photo=thumbnail,
-                caption=searched_text,
-                reply_markup=key,
-            )
+            try:
+                await app.send_photo(
+                    chat_id=message.chat.id,
+                    photo=thumbnail,
+                    caption=searched_text,
+                    reply_markup=key,
+                )
+            except PeerIdInvalid:
+                await message.reply_text("I haven't interacted with you yet, please start the conversation with me first.")
+                return
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
@@ -92,11 +100,15 @@ async def start_pm(client, message: Message, _):
     else:
         out = private_panel(_)
         await message.reply_sticker("CAACAgUAAx0CdQO5IgACMTplUFOpwDjf-UC7pqVt9uG659qxWQACfQkAAghYGFVtSkRZ5FZQXDME")
-        await message.reply_photo(
-            photo=random.choice(config.START_IMG_URL),
-            caption=_["start_2"].format(message.from_user.mention, app.mention),
-            reply_markup=InlineKeyboardMarkup(out),
-        )
+        try:
+            await message.reply_photo(
+                photo=random.choice(config.START_IMG_URL),
+                caption=_["start_2"].format(message.from_user.mention, app.mention),
+                reply_markup=InlineKeyboardMarkup(out),
+            )
+        except PeerIdInvalid:
+            await message.reply_text("I haven't interacted with you yet, please start the conversation with me first.")
+            return
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
@@ -111,22 +123,28 @@ async def start_gp(client, message: Message, _):
     uptime = int(time.time() - _boot_)
     try:
         await message.reply_photo(
-        photo=random.choice(config.START_IMG_URL),
-        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
-        reply_markup=InlineKeyboardMarkup(out),
-    )
+            photo=random.choice(config.START_IMG_URL),
+            caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
+            reply_markup=InlineKeyboardMarkup(out),
+        )
         return await add_served_chat(message.chat.id)
+    except PeerIdInvalid:
+        await message.reply_text("I haven't interacted with you yet, please start the conversation with me first.")
+        return
     except ChannelPrivate:
         return
     except SlowmodeWait as e:
-        asyncio.sleep(e.value)
+        await asyncio.sleep(e.value)
         try:
             await message.reply_photo(
-        photo=random.choice(config.START_IMG_URL),
-        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
-        reply_markup=InlineKeyboardMarkup(out),
-        )
+                photo=random.choice(config.START_IMG_URL),
+                caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
+                reply_markup=InlineKeyboardMarkup(out),
+            )
             return await add_served_chat(message.chat.id)
+        except PeerIdInvalid:
+            await message.reply_text("I haven't interacted with you yet, please start the conversation with me first.")
+            return
         except:
             return
 
@@ -156,7 +174,7 @@ async def welcome(client, message: Message):
                         disable_web_page_preview=True,
                     )
                     return await app.leave_chat(message.chat.id)
-                
+
                 ch = await app.get_chat(message.chat.id)
                 if (ch.title and re.search(r'[\u1000-\u109F]', ch.title)) or \
                     (ch.description and re.search(r'[\u1000-\u109F]', ch.description)):
