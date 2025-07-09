@@ -26,10 +26,22 @@ from config import BANNED_USERS, LOGGER_ID
 from strings import get_string
 from TeamXMusic import LOGGER
 
+# Add a new user to MongoDB (if not already in the database)
+async def add_served_user(user_id):
+    if not await db.users.find_one({"user_id": user_id}):
+        await db.users.insert_one({"user_id": user_id})
+
+# Add a new chat (group) to MongoDB (if not already in the database)
+async def add_served_chat(chat_id):
+    if not await db.chats.find_one({"chat_id": chat_id}):
+        await db.chats.insert_one({"chat_id": chat_id})
+
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
+    # Ensure the user is added to MongoDB
     await add_served_user(message.from_user.id)
+
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
@@ -103,6 +115,9 @@ async def start_pm(client, message: Message, _):
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
 async def start_gp(client, message: Message, _):
+    # Ensure the group is added to MongoDB
+    await add_served_chat(message.chat.id)
+
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
     await message.reply_photo(
