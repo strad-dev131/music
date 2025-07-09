@@ -8,6 +8,7 @@ from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram.errors.exceptions.not_acceptable_406 import ChannelPrivate
 from pyrogram.errors.exceptions.flood_420 import SlowmodeWait
+from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid  # Import PeerIdInvalid here
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
@@ -147,54 +148,3 @@ async def start_gp(client, message: Message, _):
             return
         except:
             return
-
-
-@app.on_message(filters.new_chat_members, group=-1)
-async def welcome(client, message: Message):
-    for member in message.new_chat_members:
-        try:
-            language = await get_lang(message.chat.id)
-            _ = get_string(language)
-            if await is_banned_user(member.id):
-                try:
-                    await message.chat.ban_member(member.id)
-                except:
-                    pass
-            if member.id == app.id:
-                if message.chat.type != ChatType.SUPERGROUP:
-                    await message.reply_text(_["start_4"])
-                    return await app.leave_chat(message.chat.id)
-                if message.chat.id in await blacklisted_chats():
-                    await message.reply_text(
-                        _["start_5"].format(
-                            app.mention,
-                            f"https://t.me/{app.username}?start=sudolist",
-                            config.SUPPORT_CHAT,
-                        ),
-                        disable_web_page_preview=True,
-                    )
-                    return await app.leave_chat(message.chat.id)
-
-                ch = await app.get_chat(message.chat.id)
-                if (ch.title and re.search(r'[\u1000-\u109F]', ch.title)) or \
-                    (ch.description and re.search(r'[\u1000-\u109F]', ch.description)):
-                        await blacklist_chat(message.chat.id)
-                        await message.reply_text("This group is not allowed to play songs")
-                        await app.send_message(LOGGER_ID, f"This group has been blacklisted automatically due to myanmar characters in the chat title, description or message \n Title:{ch.title} \n ID:{message.chat.id}")
-                        return await app.leave_chat(message.chat.id)
-
-                out = start_panel(_)
-                await message.reply_photo(
-                    photo=random.choice(config.START_IMG_URL),
-                    caption=_["start_3"].format(
-                        message.from_user.first_name,
-                        app.mention,
-                        message.chat.title,
-                        app.mention,
-                    ),
-                    reply_markup=InlineKeyboardMarkup(out),
-                )
-                await add_served_chat(message.chat.id)
-                await message.stop_propagation()
-        except Exception as ex:
-            print(ex)
