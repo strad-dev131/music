@@ -52,7 +52,7 @@ Introducing a **robust API** for Telegram Music Bots that allows **audio & video
 
 🔑 API Access Key
 
-MSG ME [𝐀𝐏𝐈 𝐚𝐧𝐝 𝐩𝐫𝐨𝐦𝐨𝐭𝐢𝐨𝐧](https://t.me/Api_and_promotion)
+MSG ME [𝐀𝐏𝐈 𝐚𝐧𝐝 𝐩𝐫𝐨𝐦𝐨𝐭𝐢𝐨𝐧](https://t.me/Elite_Sid)
 
 > Free for limited users.
 Share feedback and get 1 Month FREE access!
@@ -63,7 +63,7 @@ Share feedback and get 1 Month FREE access!
 🧩 Integration
 
 Get started with our open-source bot example:
-Repo: https://github.com/strad-dev131/StrangerMusicBot.git
+Repo: https://github.com/strad-dev131/music.git
 
 ---
 
@@ -71,7 +71,7 @@ Repo: https://github.com/strad-dev131/StrangerMusicBot.git
 
 Need help or want to subscribe?
 
-Telegram:[𝐀𝐏𝐈 𝐚𝐧𝐝 𝐩𝐫𝐨𝐦𝐨𝐭𝐢𝐨𝐧](https://t.me/Api_and_promotion)
+Telegram:[𝐀𝐏𝐈 𝐚𝐧𝐝 𝐩𝐫𝐨𝐦𝐨𝐭𝐢𝐨𝐧](https://t.me/Elite_Sid)
 
 Maintained by:  [Elite_Sid](https://t.me/Elite_Sid)
 
@@ -133,11 +133,11 @@ Press `Ctrl+C` when you're done with editing env and `:wq` to save the env<br>
 </h3>
 
 <p align="center">
-<a href="https://t.me/stranger_support"><img src="https://img.shields.io/badge/-Support%20Group-blue.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/TeamsXchat"><img src="https://img.shields.io/badge/-Support%20Group-blue.svg?style=for-the-badge&logo=Telegram"></a>
 </p>
 
 <p align="center">
-<a href="https://telegram.me/Ace_networkop"><img src="https://img.shields.io/badge/-Support%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/TeamXUpdate"><img src="https://img.shields.io/badge/-Support%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
 </p>
 
 <p align="center">
