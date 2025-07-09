@@ -40,7 +40,7 @@ async def start_pm(client, message: Message, _):
     await message.reply_text("Hello! I see you've started a conversation with me. Please wait a moment...")
 
     # Add a short delay before trying to send the photo (to ensure interaction is cached)
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)  # Increased delay to ensure peer ID is cached
 
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
