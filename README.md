@@ -6,6 +6,9 @@
 
 <h1 align="center">🎵 Telegram Music Bot API</h1>
 <p align="center">
+  <img src="https://files.catbox.moe/hxzqbf.jpg" alt="TeamX Music Logo" width="600" height="400">
+</p>
+<p align="center">
   Stream Audio & Video in your Telegram Music Bots — fast, secure, and cookie-free.
 </p>
 <p align="center">
