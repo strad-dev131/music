@@ -32,13 +32,19 @@ from TeamXMusic.core.mongo import mongodb
 
 # Function to add a new user to MongoDB (if not already in the database)
 async def add_served_user(user_id):
-    if not await mongodb.users.find_one({"user_id": user_id}):
-        await mongodb.users.insert_one({"user_id": user_id})
+    try:
+        if not await mongodb.users.find_one({"user_id": user_id}):
+            await mongodb.users.insert_one({"user_id": user_id})
+    except Exception as e:
+        LOGGER(__name__).error(f"Error adding user to MongoDB: {str(e)}")
 
 # Function to add a new chat (group) to MongoDB (if not already in the database)
 async def add_served_chat(chat_id):
-    if not await mongodb.chats.find_one({"chat_id": chat_id}):
-        await mongodb.chats.insert_one({"chat_id": chat_id})
+    try:
+        if not await mongodb.chats.find_one({"chat_id": chat_id}):
+            await mongodb.chats.insert_one({"chat_id": chat_id})
+    except Exception as e:
+        LOGGER(__name__).error(f"Error adding chat to MongoDB: {str(e)}")
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
