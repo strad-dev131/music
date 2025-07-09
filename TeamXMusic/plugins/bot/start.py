@@ -26,8 +26,8 @@ from config import BANNED_USERS, LOGGER_ID
 from strings import get_string
 from TeamXMusic import LOGGER
 
-# Import the MongoDB connection from mongodb.py
-from TeamXMusic.utils.mongodb import mongodb
+# Import the MongoDB connection from TeamXMusic/core/mongo.py
+from TeamXMusic.core.mongo import mongodb
 
 # Function to add a new user to MongoDB (if not already in the database)
 async def add_served_user(user_id):
