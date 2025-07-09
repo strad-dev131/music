@@ -7,10 +7,10 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
-from TeamXmusic import app
-from TeamXmusic.misc import _boot_
-from TeamXmusic.plugins.sudo.sudoers import sudoers_list
-from TeamXmusic.utils.database import (
+from TeamXMusic import app
+from TeamXMusic.misc import _boot_
+from TeamXMusic.plugins.sudo.sudoers import sudoers_list
+from TeamXMusic.utils.database import (
     add_served_chat,
     add_served_user,
     blacklisted_chats,
@@ -19,12 +19,12 @@ from TeamXmusic.utils.database import (
     is_on_off,
     blacklist_chat,
 )
-from TeamXmusic.utils.decorators.language import LanguageStart
-from TeamXmusic.utils.formatters import get_readable_time
-from TeamXmusic.utils.inline import help_pannel, private_panel, start_panel
+from TeamXMusic.utils.decorators.language import LanguageStart
+from TeamXMusic.utils.formatters import get_readable_time
+from TeamXMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS, LOGGER_ID
 from strings import get_string
-from TeamXmusic import LOGGER
+from TeamXMusic import LOGGER
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
